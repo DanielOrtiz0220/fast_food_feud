@@ -3,8 +3,12 @@ import * as React from "react"
 import { createDataSet } from "./data/dataset"
 import Header from "./components/Header/Header"
 import Instructions from "./components/Instructions/Instructions"
+import Chip from "./components/Chip/Chip"
+
+import { useState } from 'react';
 
 import "./App.css"
+
 
 // don't move this!
 export const appInfo = {
@@ -23,14 +27,32 @@ export const appInfo = {
 // or this!
 const { data, categories, restaurants } = createDataSet()
 
-export function App() {
+  export function App() {
+
+  const [selectedCategory, setCategory] = useState("");
+  const [selectedRestaurant, setRestaurant] = useState("");
+
+
+const handleOnClick = () => {
+
+}
   return (
     <main className="App">
       {/* CATEGORIES COLUMN */}
       <div className="CategoriesColumn col">
         <div className="categories options">
           <h2 className="title">Categories</h2>
-          {}
+          
+            {
+            categories.map((category, index) => {
+
+              let isActive = ""
+              console.log(category.food_category)
+
+              return <Chip key ={index} label={category} isActive = {selectedCategory === category} onClick = {() => setCategory(category)}/>
+            }
+)}
+
         </div>
       </div>
 
@@ -43,7 +65,17 @@ export function App() {
         {/* RESTAURANTS ROW */}
         <div className="RestaurantsRow">
           <h2 className="title">Restaurants</h2>
-          <div className="restaurants options">{/* YOUR CODE HERE */}</div>
+          <div className="restaurants options">{
+            restaurants.map((restaurant, index) => {
+
+              let isActive = ""
+              if(restaurant.restaurant == "In-N-Out Burger"){
+                isActive = true}
+
+              return <Chip key = {index} label = {restaurant} isActive = {selectedRestaurant === restaurant} onClick = {() => setRestaurant(restaurant)} />  // why does onclick have to use an anonymous function?
+            }
+          )}
+          </div>
         </div>
 
         {/* INSTRUCTIONS GO HERE */}
