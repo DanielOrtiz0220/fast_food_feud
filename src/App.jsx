@@ -1,6 +1,9 @@
 import * as React from "react"
 // IMPORT ANY NEEDED COMPONENTS HERE
 import { createDataSet } from "./data/dataset"
+import Header from "./components/Header/Header"
+import Instructions from "./components/Instructions/Instructions"
+
 import "./App.css"
 
 // don't move this!
@@ -27,13 +30,15 @@ export function App() {
       <div className="CategoriesColumn col">
         <div className="categories options">
           <h2 className="title">Categories</h2>
-          {/* YOUR CODE HERE */}
+          {}
         </div>
       </div>
 
       {/* MAIN COLUMN */}
       <div className="container">
         {/* HEADER GOES HERE */}
+
+        <Header title = {appInfo.title} tagline = {appInfo.tagline} description = {appInfo.description}/>
 
         {/* RESTAURANTS ROW */}
         <div className="RestaurantsRow">
@@ -42,6 +47,7 @@ export function App() {
         </div>
 
         {/* INSTRUCTIONS GO HERE */}
+        <Instructions listOfInstructions = {appInfo.instructions}/>
 
         {/* MENU DISPLAY */}
         <div className="MenuDisplay display">
