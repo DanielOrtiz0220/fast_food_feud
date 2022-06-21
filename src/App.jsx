@@ -4,6 +4,7 @@ import { createDataSet } from "./data/dataset"
 import Header from "./components/Header/Header"
 import Instructions from "./components/Instructions/Instructions"
 import Chip from "./components/Chip/Chip"
+import NutritionalLabel from "./components/NutritionalLabel/NutritionalLabel"
 
 import { useState } from 'react';
 
@@ -29,13 +30,12 @@ const { data, categories, restaurants } = createDataSet()
 
   export function App() {
 
-  const [selectedCategory, setCategory] = useState("");
-  const [selectedRestaurant, setRestaurant] = useState("");
+  const [selectedCategory, setCategory] = useState(null);
+  const [selectedRestaurant, setRestaurant] = useState(null);
+  const [selectedMenuItem, setMenuItem] = useState(null);
 
+  let currentMenuItems = data.filter(item => item.food_category === selectedCategory && item.restaurant === selectedRestaurant);
 
-const handleOnClick = () => {
-
-}
   return (
     <main className="App">
       {/* CATEGORIES COLUMN */}
@@ -85,11 +85,18 @@ const handleOnClick = () => {
         <div className="MenuDisplay display">
           <div className="MenuItemButtons menu-items">
             <h2 className="title">Menu Items</h2>
-            {/* YOUR CODE HERE */}
+
+            {
+              currentMenuItems.map((menuItem, idx) => {
+                return <Chip key = {idx} label = {menuItem.item_name} isActive = {selectedMenuItem && selectedMenuItem.item_name === menuItem.item_name} onClick = {() => setMenuItem(menuItem)} />
+              })
+              }
+
           </div>
 
-          {/* NUTRITION FACTS */}
-          <div className="NutritionFacts nutrition-facts">{/* YOUR CODE HERE */}</div>
+          
+          <div className="NutritionFacts nutrition-facts">{selectedMenuItem ? <NutritionalLabel item={selectedMenuItem}/> : null }
+          </div>
         </div>
 
         <div className="data-sources">
